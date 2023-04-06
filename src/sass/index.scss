@@ -1,2 +1,91 @@
-@import './common';
-@import './example';
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+        Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.5;
+    color: #2a2a2a;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+    border-radius: 4px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.search-form {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 50px;
+    
+    background-color: #4a69bd;
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    box-shadow: 0px 4px 4px rgba(0,0,0,0.25);
+}
+
+.load-more {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 100px;
+}
+
+.is-hidden {
+    display: none;
+}
+
+.js-articles-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 20px;
+    padding: 0;
+    margin: 0;
+    max-width: calc(100vw - 80px);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    margin-top: 40px;
+}
+
+.info {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0px 1px 3px rgba(0,0,0,0.12), 0px 1px 1px rgba(0,0,0,0.14), 0px 2px 1px rgba(0,0,0,0.2);
+    border-radius: 0px 0px 4px 4px;
+}
+
+.js-articles-container img {
+    display: block;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.info p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color: #2a2a2abc;
+    margin: 10px 5px;
+    font-size: small;
+}
+
+b {
+    padding-right: 5px ;
+}
