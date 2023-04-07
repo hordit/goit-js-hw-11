@@ -13,7 +13,7 @@ export default class ApiService {
         orientation: 'horizontal',
         safesearch: true,
         page: 1,
-        per_page: 4,
+        per_page: 40,
       },
     };
   }
