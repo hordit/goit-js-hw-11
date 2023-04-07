@@ -11,7 +11,9 @@ const refs = {
     };
     
 const { searchForm, galleryItems, loadMoreBtn }  = refs;
+
 const pixabayRequest = new ApiService();
+
 loadMoreBtn.classList.add('is-hidden');
 const lightbox = new SimpleLightbox('.gallery a');
 
@@ -21,6 +23,8 @@ loadMoreBtn.addEventListener('click', onLoadMore);
 async function onFormSubmit(e) {
   e.preventDefault();
 
+  pixabayRequest.resetPage();
+
   const { elements: { searchQuery } } = e.target;
   const value = searchQuery.value.trim();
   
@@ -29,7 +33,6 @@ async function onFormSubmit(e) {
   }
   
   pixabayRequest.query = searchQuery.value;
-  pixabayRequest.resetPage(); 
  
   try {
     const data = await pixabayRequest.getData();
@@ -41,8 +44,7 @@ async function onFormSubmit(e) {
       Notify.failure('Sorry, there are no images matching your search query. Please try again.');
     } else {
       cleanGalleryItems();
-      const markup = createMarkup(data);
-      galleryItems.insertAdjacentHTML('beforeend', markup);
+      appendImagesMarkup(data);
       loadMoreIsVisible();
       lightbox.refresh();
       endOfSearchResultNotify();
@@ -55,13 +57,12 @@ async function onFormSubmit(e) {
     searchForm.reset();
   }
 }
-
 async function onLoadMore() {
     try {
+      console.log(pixabayRequest.page);
         const data = await pixabayRequest.getData();
-        cleanGalleryItems();
-        const markup = createMarkup(data);
-        galleryItems.insertAdjacentHTML('beforeend', markup);
+
+        appendImagesMarkup(data);
         loadMoreIsVisible();
         lightbox.refresh();
         endOfSearchResultNotify();
@@ -83,12 +84,14 @@ async function onLoadMore() {
 }
 
 function loadMoreIsVisible() {
+  console.log(pixabayRequest.page);
+
     if (getPagesCount() > pixabayRequest.page - 1) {
       loadMoreBtn.classList.remove('is-hidden');
     } else {
       loadMoreBtn.classList.add('is-hidden');
     }
-  }
+}
   
 function getPagesCount() {
     return Math.ceil(pixabayRequest.totalHits / pixabayRequest.options.params.per_page);
@@ -98,6 +101,10 @@ function endOfSearchResultNotify() {
     if (getPagesCount() === pixabayRequest.page - 1) {
       return Notify.failure("We're sorry, but you've reached the end of search results.");
     }
+}
+
+function appendImagesMarkup(data) {
+  galleryItems.insertAdjacentHTML('beforeend', createMarkup(data));
 }
 
 function cleanGalleryItems() {

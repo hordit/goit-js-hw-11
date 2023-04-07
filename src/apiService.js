@@ -5,7 +5,6 @@ const KEY = '35108422-161ec549d3f33884080f26a52';
 export default class ApiService {
   constructor() {
     this.totalHits = 0;
-
     this.options = {
       params: {
         key: KEY,
@@ -14,14 +13,14 @@ export default class ApiService {
         orientation: 'horizontal',
         safesearch: true,
         page: 1,
-        per_page: 40,
+        per_page: 4,
       },
     };
   }
 
   async getData() {
       const response = await axios.get(BASE_URL, this.options);
-      const { hits, totalHits} = await response.data;
+      const { totalHits } = await response.data;
 
       this.totalHits = totalHits;
 
