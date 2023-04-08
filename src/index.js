@@ -11,9 +11,7 @@ const refs = {
     };
     
 const { searchForm, galleryItems, loadMoreBtn }  = refs;
-
 const pixabayRequest = new ApiService();
-
 loadMoreBtn.classList.add('is-hidden');
 const lightbox = new SimpleLightbox('.gallery a');
 
@@ -59,7 +57,6 @@ async function onFormSubmit(e) {
 }
 async function onLoadMore() {
     try {
-      console.log(pixabayRequest.page);
         const data = await pixabayRequest.getData();
 
         appendImagesMarkup(data);
@@ -84,8 +81,6 @@ async function onLoadMore() {
 }
 
 function loadMoreIsVisible() {
-  console.log(pixabayRequest.page);
-
     if (getPagesCount() > pixabayRequest.page - 1) {
       loadMoreBtn.classList.remove('is-hidden');
     } else {
